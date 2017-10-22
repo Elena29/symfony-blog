@@ -1,0 +1,7 @@
+###> symfony/framework-bundle ###
+/be-boilerplate/.env
+/be-boilerplate/public/bundles/
+/be-boilerplate/var/
+/be-boilerplate/vendor/
+/logs/
+###< symfony/framework-bundle ###
