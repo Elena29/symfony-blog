@@ -11,12 +11,12 @@ services:
           MYSQL_PASSWORD: sheldon
   php:
       build: ./php-fpm
-      ports:
-        - 9000:9000
       volumes:
         - ./be-boilerplate:/var/www:rw
       links:
         - db
+      environment:
+        - XDEBUG_CONFIG="remote_host=192.168.0.12"
   nginx:
       build: ./nginx
       ports:
