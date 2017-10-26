@@ -4,4 +4,6 @@
 /be-boilerplate/var/
 /be-boilerplate/vendor/
 /logs/
+/.idea/
+/be-boilerplate/.idea/
 ###< symfony/framework-bundle ###
