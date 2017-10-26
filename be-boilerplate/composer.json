@@ -17,7 +17,9 @@
         "symfony/dotenv": "^3.3",
         "symfony/yaml": "^3.3",
         "ramsey/uuid": "~3.0",
-        "doctrine/collections": "^1.5"
+        "doctrine/collections": "^1.5",
+        "friendsofsymfony/rest-bundle": "^2.2",
+        "jms/serializer-bundle": "^2.2"
     },
     "require-dev": {
         "phing/phing": "2.*",

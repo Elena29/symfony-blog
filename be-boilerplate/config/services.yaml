@@ -26,3 +26,20 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+fos_rest:
+    routing_loader:
+        default_format: json                            # All responses should be JSON formated
+        include_format: false                           # We do not include format in request, so that all responses
+    view:
+        formats:
+            json: true
+        mime_types:
+            json: ['application/json', 'application/x-json']
+        force_redirects:
+            html: true
+        templating_formats:
+            json: false
+            xml: false
+            html: false
+        view_response_listener: force
