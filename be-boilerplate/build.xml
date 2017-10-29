@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <project name="be-boilerplate" default="verify-dev">
+        <!-- ### Verify code consistency -->
+        <target name="verify-dev" depends="init, lint-php, phpunit, phpcs, phpmd, phpcpd"/>
+
+        <!-- ### Initialization  -->
+        <target name="init" unless="project.initialized" depends="load-properties,
+                                                                  clean,
+                                                                  setup-dirs,
+                                                                  setup-filesets">
+            <!-- Set property to prevent target from being executed multiple times -->
+            <property name="project.initialized" value="true"/>
+        </target>
+
+        <!-- ### Load properties
+        Loads a set of project specific properties from a `.properties` file. -->
+        <target name="load-properties" unless="project.properties.loaded">
+            <php function="dirname" returnProperty="phing.dir">
+                <param value="${phing.file}"/>
+            </php>
+
+            <property name="project.basedir"     value="${phing.dir}" />
+            <property name="project.sitedir"     value="/be-boilerplate/App" />
+            <property name="project.builddir"    value="${project.basedir}/build" />
+            <property name="php.bin.path"        value="${project.basedir}/vendor/bin" />
+
+
+            <!-- Use condition instead of unless property as we cannot unset properties in Phing -->
+            <if>
+                <or>
+                    <!-- `istrue` evaluates to true is value is not set we need to check
+                    `isset` as well -->
+                    <not><istrue value="${project.properties.loaded}" /></not>
+                    <not><isset property="project.properties.loaded" /></not>
+                </or>
+                <then>
+
+                    <!-- If `build.properties` exists then assume we have a
+                    project root directory -->
+                    <if>
+                        <available file="${project.basedir}/build.properties"/>
+                        <then>
+                            <resolvepath propertyName="project.basedir" file="${project.basedir}/"/>
+                        </then>
+                    </if>
+
+                    <!-- `build.properties` in build file directory -->
+                    <available file="${phing.dir}/build.properties" property="project.properties.file"
+                               value="${phing.dir}/build.properties" />
+
+                    <!-- Load the overriding properties. -->
+                    <property file="${project.properties.file}" override="true" />
+
+                    <!-- Set property to prevent unnecessary additional invocations of this target -->
+                    <property name="project.properties.loaded" value="true" />
+                </then>
+            </if>
+        </target>
+
+        <target name="setup-filesets" depends="load-properties">
+            <!-- Define pattern sets for future reference -->
+            <patternset id="php">
+                <exclude name="**/build/**"/>
+                <exclude name="**/vendor/**"/>
+                <include name="**/*.php" />
+            </patternset>
+
+            <fileset dir="${project.sitedir}" id="app">
+                <patternset refid="php"/>
+            </fileset>
+            <fileset dir="${project.basedir}/Domain" id="domain">
+                <patternset refid="php"/>
+            </fileset>
+            <fileset dir="${project.basedir}/Infrastructure" id="infrastructure">
+                <patternset refid="php"/>
+            </fileset>
+        </target>
+
+        <target name="setup-dirs" depends="load-properties" unless="project.folders-set">
+            <!-- Create required folders  -->
+            <if>
+                <available file='${project.builddir}' type='dir' />
+                <then>
+                    <echo>Directory (${project.builddir}) exists, not created</echo>
+                </then>
+                <else>
+                    <mkdir dir="${project.builddir}" />
+                </else>
+            </if>
+            <!-- to avoid folder setting every call -->
+            <property name="project.folders-set" value="true"/>
+        </target>
+
+        <!-- ### Clean working environment  -->
+        <target name="clean" depends="load-properties" description="Clean up and create artifact directories" unless="project.cleaned">
+            <!-- Here should be deleted folders related to building project -->
+            <!-- Set property to prevent target from being executed multiple times -->
+            <property name="project.cleaned" value="true"/>
+        </target>
+
+
+
+        <!-- ### PHP linting Check files for syntax errors. -->
+        <target name="lint-php" description="Check all PHP files for syntax errors using PHPLint" depends="init">
+                <phplint haltonfailure="true" level="none">
+                    <fileset refid="app" />
+                    <fileset refid="domain" />
+                    <fileset refid="infrastructure" />
+                    <fileset dir="public">
+                        <include name="*.php" />
+                    </fileset>
+                </phplint>
+        </target>
+
+
+        <!-- ### Detect code mess  -->
+        <target name="phpmd" depends="init">
+            <exec executable="${php.bin.path}/phpmd" checkreturn="false" passthru="true">
+                <arg line="Domain" />
+                <arg line="text" />
+                <arg line="phpmd-ruleset.xml" />
+            </exec>
+        </target>
+
+        <!-- ### Detect potential copy/pasting  -->
+        <target name="phpcpd" description="Copy/Paste Detector for PHP code" depends="init">
+            <exec command="${php.bin.path}/phpcpd ${project.sitedir} ${project.basedir}/Domain ${project.basedir}/Infrastructure"  passthru="true"/>
+        </target>
+
+        <!-- ### Review code using PHP_CodeSniffer  -->
+
+        <!-- Analyze code with help codeSniffer for running on DEV machine before push -->
+        <target name="phpcs" description="Generate CodeSniffer report for Developer" depends="init">
+            <exec spawn="false" executable="${php.bin.path}/phpcs" checkreturn="true" passthru="true">
+                <arg line="--standard=${project.basedir}/phpcs-ruleset.xml" />
+                <arg line="${project.basedir}/App ${project.basedir}/Domain ${project.basedir}/Infrastructure" />
+            </exec>
+        </target>
+
+        <!--  Fix phpcs errors and warnings -->
+        <target name="phpcbf" description="Fix CodeSniffer issues" depends="init" >
+            <exec executable="${php.bin.path}/phpcbf" logoutput="true" checkreturn="true">
+                <arg line="--standard=${project.basedir}/phpcs-ruleset.xml" />
+                <arg line="${project.basedir}/App ${project.basedir}/Domain ${project.basedir}/Infrastructure" />
+            </exec>
+        </target>
+
+
+        <!-- PHPUnit target (see phpunit.xml for details) -->
+
+        <target name="phpunit">
+            <exec executable="vendor/bin/phpunit" checkreturn="true" passthru="true">
+                <arg line="-c phpunit.xml"/>
+                <arg line="--colors=always"/>
+            </exec>
+        </target>
+
+</project>

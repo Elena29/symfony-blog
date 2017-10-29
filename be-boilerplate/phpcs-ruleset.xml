@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ruleset name="CodeStyle rules">
+    <description>Coding standard based on PSR2</description>
+
+    <extensions>php</extensions>
+
+    <!-- Tabs should represent 4 spaces. -->
+    <arg name="tab-width" value="4"/>
+    <rule ref="PSR2">
+        <exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
+    </rule>
+    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+            <property name="indent" value="4"/>
+            <property name="tabIndent" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- Adding spaces between concatenation -->
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1"/>
+            <property name="ignoreNewlines" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- When present, there MUST be one blank line after the namespace declaration. -->
+    <rule ref="PSR2.Namespaces.NamespaceDeclaration"/>
+
+    <!-- When present, all use declarations MUST go after the namespace declaration.
+    There MUST be one use keyword per declaration.
+    There MUST be one blank line after the use block. -->
+    <rule ref="PSR2.Namespaces.UseDeclaration"/>
+
+    <!-- Method names SHOULD NOT be prefixed with a single underscore to indicate protected or private visibility. -->
+    <rule ref="PSR2.Methods.MethodDeclaration"/>
+
+    <!-- Functions declaration -->
+    <rule ref="Squiz.Functions.FunctionDeclaration" />
+    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+        <properties>
+            <property name="equalsSpacing" value="1" />
+        </properties>
+    </rule>
+
+
+</ruleset>

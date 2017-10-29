@@ -10,41 +10,41 @@ use Ramsey\Uuid\Uuid;
  */
 final class PostId
 {
-    /**
-     * @var int
-     */
-    private $id;
+	/**
+	 * @var int
+	 */
+	private $id;
 
-    /**
-     * PostId constructor.
-     * @param $id
-     */
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
+	/**
+	 * PostId constructor.
+	 * @param $id
+	 */
+	public function __construct($id)
+	{
+		$this->id = $id;
+	}
 
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->id;
-    }
+	/**
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return (string) $this->id;
+	}
 
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return (int) $this->__toString();
-    }
+	/**
+	 * @return int
+	 */
+	public function getId()
+	{
+		return (int) $this->__toString();
+	}
 
-    /**
-     * @return PostId
-     */
-    public static function generate()
-    {
-        return new self(Uuid::uuid4());
-    }
+	/**
+	 * @return PostId
+	 */
+	public static function generate()
+	{
+		return new self(Uuid::uuid4());
+	}
 }

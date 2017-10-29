@@ -12,20 +12,19 @@ use Domain\IPostRepository;
  */
 class PostRepository implements IPostRepository
 {
-    /**
-     * @return Post
-     */
-    public function getById()
-    {
-        // TODO: Implement getById() method.
-    }
+	/**
+	 * @return Post
+	 */
+	public function getById()
+	{
+		// TODO: Implement getById() method.
+	}
 
-    /**
-     * @var ArrayCollection
-     */
-    public function getAll()
-    {
-        // TODO: Implement getAll() method.
-    }
-
+	/**
+	 * @return  ArrayCollection
+	 */
+	public function getAll()
+	{
+		// TODO: Implement getAll() method.
+	}
 }

@@ -8,7 +8,7 @@ services:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: blog
           MYSQL_USER: sheldon
-          MYSQL_PASSWORD: sheldon
+          MYSQL_PASSWORD: root
   php:
       build: ./php-fpm
       volumes:
