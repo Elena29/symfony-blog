@@ -6,3 +6,7 @@
 #controllers:
 #    resource: ../src/Controller/
 #    type: annotation
+
+get_posts:
+    type: rest
+    resource: App\Controller\BlogController

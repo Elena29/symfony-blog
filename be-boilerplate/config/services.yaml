@@ -1,7 +1,12 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-
+    database_driver:   mysql
+    database_host:     127.0.0.1
+    database_port:     3306
+    database_name:     blog
+    database_user:     sheldon
+    database_password: root
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -13,16 +18,33 @@ services:
         # if you need to do this, you can override this setting on individual services
         public: false
 
-    # makes classes in src/ available to be used as services
+    # makes classes in App/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/*'
+        resource: '../App/*'
         # you can exclude directories or files
         # but if a service is unused, it's removed anyway
-        exclude: '../src/{Entity,Migrations,Repository,Tests}'
+        exclude: '../App/{Entity,Migrations,Repository,Tests}'
 
     # controllers are imported separately to make sure they
     # have the tag that allows actions to type-hint services
     App\Controller\:
-        resource: '../src/Controller'
+        resource: '../App/Controller'
         tags: ['controller.service_arguments']
+
+fos_rest:
+    routing_loader:
+        default_format: json                            # All responses should be JSON formated
+        include_format: false                           # We do not include format in request, so that all responses
+    view:
+        formats:
+            json: true
+        mime_types:
+            json: ['application/json', 'application/vnd.api+json']
+        force_redirects:
+            html: true
+        templating_formats:
+            json: false
+            xml: false
+            html: false
+        view_response_listener: force

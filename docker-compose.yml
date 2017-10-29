@@ -8,15 +8,15 @@ services:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: blog
           MYSQL_USER: sheldon
-          MYSQL_PASSWORD: sheldon
+          MYSQL_PASSWORD: root
   php:
       build: ./php-fpm
-      ports:
-        - 9000:9000
       volumes:
         - ./be-boilerplate:/var/www:rw
       links:
         - db
+      environment:
+        - XDEBUG_CONFIG="remote_host=192.168.0.12"
   nginx:
       build: ./nginx
       ports:
