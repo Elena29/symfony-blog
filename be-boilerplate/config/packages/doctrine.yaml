@@ -1,0 +1,16 @@
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                host:     '%database_host%'
+                port:     '%database_port%'
+                dbname:   '%database_name%'
+                user:     '%database_user%'
+                password: '%database_password%'
+                charset:  '%database_charset%'
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+

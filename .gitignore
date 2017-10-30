@@ -3,6 +3,7 @@
 /be-boilerplate/public/bundles/
 /be-boilerplate/var/
 /be-boilerplate/vendor/
+/be-boilerplate/symfony.lock
 /logs/
 /.idea/
 /be-boilerplate/.idea/

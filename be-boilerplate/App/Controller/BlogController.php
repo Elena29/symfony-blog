@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Dto\PostDto;
+use App\Services\PostService;
+use Domain\PostId;
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class BlogController
@@ -11,15 +14,25 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BlogController extends FOSRestController
 {
+	private $postService;
 
-	/**
-	 * @param Request $request
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function getPostsAction(Request $request)
+	public function __construct(PostService $postService)
 	{
-		$data = array("hello" => "world");
+		$this->postService = $postService;
+	}
+
+	public function getPostsAction(): Response
+	{
+		$data = ["hello" => "world"];
 		$view = $this->view($data);
+		return $this->handleView($view);
+	}
+
+	public function getPostAction(int $postId): Response
+	{
+		$post = $this->postService->findPostBy(new PostId($postId));
+		$data = new PostDto($post);
+		$view = $this->view($data->__toArray());
 		return $this->handleView($view);
 	}
 }

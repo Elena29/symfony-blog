@@ -21,7 +21,7 @@
             </php>
 
             <property name="project.basedir"     value="${phing.dir}" />
-            <property name="project.sitedir"     value="/be-boilerplate/App" />
+            <property name="project.sitedir"     value="${project.basedir}/App" />
             <property name="project.builddir"    value="${project.basedir}/build" />
             <property name="php.bin.path"        value="${project.basedir}/vendor/bin" />
 
