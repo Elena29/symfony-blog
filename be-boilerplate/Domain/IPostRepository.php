@@ -11,13 +11,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 interface IPostRepository
 {
-	/**
-	 * @return Post
-	 */
-	public function getById();
+	public function getById(PostId $postId);
 
-	/**
-	 * @return ArrayCollection
-	 */
-	public function getAll();
+	public function getAll(): ArrayCollection;
+
+	public function create(Post $post): Post;
+
+	public function update(Post $post): Post;
 }

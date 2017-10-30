@@ -1,12 +1,12 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    database_driver:   mysql
-    database_host:     127.0.0.1
+    database_host:     db
     database_port:     3306
     database_name:     blog
     database_user:     sheldon
     database_password: root
+    database_charset:  UTF8
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -31,6 +31,16 @@ services:
     App\Controller\:
         resource: '../App/Controller'
         tags: ['controller.service_arguments']
+    # makes classes in Domain/ available to be used as services
+    Domain\:
+        resource: '../Domain/*'
+    # makes classes in Infrastructure/ available to be used as services
+    Infrastructure\:
+        resource: '../Infrastructure/*'
+    # listening different type of exceptions
+    App\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
 
 fos_rest:
     routing_loader:

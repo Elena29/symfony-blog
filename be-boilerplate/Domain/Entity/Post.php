@@ -28,7 +28,12 @@ class Post
 	/**
 	 * @var \DateTime
 	 */
-	private $date;
+	private $createdAt;
+
+	/**
+	 * @var \DateTime
+	 */
+	private $updatedAt;
 
 	/**
 	 * Post constructor.
@@ -68,9 +73,9 @@ class Post
 	/**
 	 * @return \DateTime
 	 */
-	public function getDate(): \DateTime
+	public function getCreatedAt(): \DateTime
 	{
-		return $this->date;
+		return $this->createdAt;
 	}
 
 	/**
@@ -82,10 +87,26 @@ class Post
 	}
 
 	/**
-	 * @param \DateTime $date
+	 * @param \DateTime $createdAt
 	 */
-	public function setDate(\DateTime $date)
+	public function setCreatedAt(\DateTime $createdAt)
 	{
-		$this->date = $date;
+		$this->createdAt = $createdAt;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getUpdatedAt(): \DateTime
+	{
+		return $this->updatedAt;
+	}
+
+	/**
+	 * @param \DateTime $updatedAt
+	 */
+	public function setUpdatedAt(\DateTime $updatedAt = null)
+	{
+		$this->updatedAt = $updatedAt ?? new \DateTime('now');
 	}
 }

@@ -10,3 +10,6 @@
 get_posts:
     type: rest
     resource: App\Controller\BlogController
+get_post:
+    type: rest
+    resource: App\Controller\BlogController
