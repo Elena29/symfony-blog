@@ -6,11 +6,11 @@ Simple backend skeleton - REST API project with JSON  serialization.
 
 # Blog related calls
 
-For retrieving posts, creating/updating and deleting calls
+## Post info [/posts/{id}]
++ Parameters
+    + id: 1 (required, number) Post id
 
-## Restaurant info [/posts]
-
-### Retrieve restaurant delivery postcodes and localities [GET]
+### Retrieve  [GET]
     + Headers
 
         Content-Type: application/json
@@ -23,6 +23,10 @@ For retrieving posts, creating/updating and deleting calls
     + Body
 
             {
-                "hello":"world"
+                "id": "1",
+                "title": "test",
+                "description": "test desc",
+                "created": "2017-10-29 19:26:42",
+                "modified": "2017-10-29 19:26:45"
             }
 

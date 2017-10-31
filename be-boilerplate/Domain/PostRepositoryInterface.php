@@ -6,10 +6,10 @@ use Domain\Entity\Post;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Interface IPostRepository
+ * Interface PostRepositoryInterface
  * @package Domain
  */
-interface IPostRepository
+interface PostRepositoryInterface
 {
 	public function getById(PostId $postId);
 
