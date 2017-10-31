@@ -26,8 +26,10 @@ class ExceptionListener
 
 		if ($exception instanceof \DomainException) {
 			$response->setStatusCode(Response::HTTP_BAD_REQUEST);
+		} elseif ($exception instanceof \InvalidArgumentException) {
+			$response->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
 		} else {
-			$response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+			$response->setStatusCode(Response::HTTP_NOT_FOUND);
 		}
 
 		$event->setResponse($response);
