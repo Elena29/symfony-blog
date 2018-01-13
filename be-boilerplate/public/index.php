@@ -8,7 +8,8 @@ require __DIR__.'/../vendor/autoload.php';
 
 // The check is to ensure we don't use .env in production
 if (!isset($_SERVER['APP_ENV'])) {
-    (new Dotenv())->load(__DIR__.'/../.env');
+	$env = (getenv('APP_ENV') == 'testing') ? '.env.testing' : '.env';
+	(new Dotenv())->load(__DIR__.'/../' . $env);
 }
 
 if ($_SERVER['APP_DEBUG'] ?? false) {

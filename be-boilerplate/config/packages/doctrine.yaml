@@ -3,12 +3,12 @@ doctrine:
         default_connection: default
         connections:
             default:
-                host:     '%database_host%'
-                port:     '%database_port%'
-                dbname:   '%database_name%'
-                user:     '%database_user%'
-                password: '%database_password%'
-                charset:  '%database_charset%'
+                host:     '%env(DB_HOST)%'
+                port:     '%env(DB_PORT)%'
+                dbname:   '%env(DB_DATABASE)%'
+                user:     '%env(DB_USERNAME)%'
+                password: '%env(DB_PASSWORD)%'
+                charset:  'UTF8'
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'

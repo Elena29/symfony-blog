@@ -9,12 +9,22 @@ services:
           MYSQL_DATABASE: blog
           MYSQL_USER: sheldon
           MYSQL_PASSWORD: root
+#  test-db:
+#      image: mysql
+#      ports:
+#          - 8080:3306
+#      environment:
+#          MYSQL_DATABASE: test_db
+#          MYSQL_ROOT_PASSWORD: root
+#          MYSQL_USER: test
+#          MYSQL_PASSWORD: root
   php:
       build: ./php-fpm
       volumes:
         - ./be-boilerplate:/var/www:rw
       links:
         - db
+#        - test-db
       environment:
         - XDEBUG_CONFIG=remote_host=192.168.0.12
   nginx:
@@ -25,3 +35,12 @@ services:
         - ./logs/nginx:/etc/logs/nginx
       links:
         - php
+
+#  test-server:
+#      build: ./nginx-test
+#      ports:
+#        - 81:81
+#      volumes:
+#        - ./logs/nginx:/etc/logs/nginx
+#      links:
+#        - php

@@ -1,12 +1,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    database_host:     db
-    database_port:     3306
-    database_name:     blog
-    database_user:     sheldon
-    database_password: root
-    database_charset:  UTF8
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -34,6 +29,7 @@ services:
     # makes classes in Domain/ available to be used as services
     Domain\:
         resource: '../Domain/*'
+    Domain\PostRepositoryInterface: '@Infrastructure\Sql\PostRepository'
     # makes classes in Infrastructure/ available to be used as services
     Infrastructure\:
         resource: '../Infrastructure/*'

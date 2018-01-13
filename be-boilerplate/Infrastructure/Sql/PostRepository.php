@@ -3,7 +3,7 @@
 namespace Infrastructure\Sql;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Domain\Entity\Post;
 use Domain\Factory\PostFactory;
 use Domain\PostRepositoryInterface;
@@ -19,7 +19,7 @@ class PostRepository implements PostRepositoryInterface
 	private $em;
 	private $postFactory;
 
-	public function __construct(EntityManager $em, PostFactory $postFactory)
+	public function __construct(EntityManagerInterface $em, PostFactory $postFactory)
 	{
 		$this->em = $em;
 		$this->postFactory = $postFactory;
