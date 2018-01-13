@@ -1,0 +1,8 @@
+actor: FunctionalTester
+modules:
+    enabled:
+        - REST:
+            depends: PhpBrowser
+            url: http://test.local:81
+        - \Helper\Functional
+        - Db
