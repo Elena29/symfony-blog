@@ -15,6 +15,7 @@ Provided configuration for:
    - functional tests;
    - phpunit tests;
    - documentation using Apiary;
+   - Integration with Jenkins
     
 To run functional test:
 
