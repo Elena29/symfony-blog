@@ -8,3 +8,8 @@
 /.idea/
 /be-boilerplate/.idea/
 ###< symfony/framework-bundle ###
+
+###jenkins and DB config ###
+/jenkins-data
+/dump-db
+###jenkins and DB config ###

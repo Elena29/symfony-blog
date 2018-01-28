@@ -4,6 +4,8 @@ services:
       image: mysql
       ports:
           - 3306:3306
+      volumes:
+        - ./dump-db:/var/lib/mysql
       environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: blog
@@ -30,12 +32,18 @@ services:
   nginx:
       build: ./nginx
       ports:
-        - 80:80
+        - 8082:8082
       volumes:
         - ./logs/nginx:/etc/logs/nginx
       links:
         - php
-
+  jenkins:
+      image: jenkinsci/blueocean
+      ports:
+          - 8080:8080
+          - 49000:8080
+      volumes:
+        - ./jenkins-data:/var/jenkins_home
 #  test-server:
 #      build: ./nginx-test
 #      ports:
